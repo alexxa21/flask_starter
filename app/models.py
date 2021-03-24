@@ -10,7 +10,7 @@ class Property(db.Model):
     rooms = db.Column(db.String(10))
     bathrooms = db.Column(db.String(10))
     price = db.Column(db.String(20))
-    property = db.Column(db.String(20))
+    property_type = db.Column(db.String(20))
     location = db.Column(db.String(150))
     filename = db.Column(db.String(255)) 
 
@@ -20,7 +20,7 @@ class Property(db.Model):
         self.rooms = rooms
         self.bathrooms = bathrooms
         self.price = price
-        self.property = property
+        self.property_type = property_type
         self.location = location
         self.filename = filename
         
