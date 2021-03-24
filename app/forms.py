@@ -5,7 +5,6 @@ from wtforms.validators import InputRequired, ValidationError
 
 
 class PropertyForm(FlaskForm):
-    
     title = StringField('Property Title', validators=[InputRequired()])
     description = TextAreaField('Description', validators=[InputRequired()])
     rooms = StringField('No. of Rooms', validators=[InputRequired()])
