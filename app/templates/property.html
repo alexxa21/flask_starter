@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+
+{% block title %} 
+<title>Add Property</title>
+{% endblock%}
+
+{% block main %}
+<h1 class="bold">Add New Property</h1>
+<div class="color col-lg-9">
+  <form action="{{url_for('property')}}" method="POST" enctype="multipart/form-data">
+      {{ form.csrf_token }}
+      <div class="form-group col-md-10">
+        {{ form.title.label(class="bold") }}
+        {{ form.title(class="form-control") }}
+      </div>
+      <div class="form-group col-md-10">
+        {{ form.description.label(class="bold") }}
+        {{ form.description(class="form-control") }}
+      </div>
+      <div class="form-row col-md-10">
+        <div class="col">
+            <div class="form">
+                {{ form.rooms.label(class="bold") }}
+                {{ form.rooms(placeholder="3", class="form-control") }}
+            </div>
+            <div class="form">
+                {{ form.price.label(class="bold") }}
+                {{ form.price(placeholder="15,000.00", class="form-control") }}
+            </div>
+        </div>
+        <div class="col-sm-1"></div>
+        <div class="col">
+            <div class="form">
+                {{ form.bathnum.label(class="bold") }}
+                {{ form.bathnum(placeholder="5", class="form-control") }}
+            </div>
+            <div class="form">
+                {{ form.type.label(class="bold") }}
+                {{ form.type(default=1, class="custom-select") }}
+            </div>
+        </div>
+      </div>
+      <div class="form col-md-4">
+        {{ form.location.label(class="bold") }}
+        {{ form.location(placeholder="10 Waterloo Rd.", class="form-control") }}
+      </div>
+      <div class="form-group col-md-6">
+        {{ form.photo.label(class="bold") }}
+        {{ form.photo(class="form-control-file")}}
+      </div>
+      <button type="submit" name="submit" class="btn btn-primary">Add Property</button>
+  </form>  
+</div>
+{% endblock %}

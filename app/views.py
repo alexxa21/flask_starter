@@ -5,8 +5,13 @@ Werkzeug Documentation:  http://werkzeug.pocoo.org/documentation/
 This file creates your application.
 """
 
-from app import app
-from flask import render_template, request, redirect, url_for
+import os
+from app import app, db
+from flask import render_template, request, redirect, url_for, flash, send_from_directory
+from .forms import PropertyForm
+from werkzeug.utils import secure_filename
+from .models import Property
+
 
 
 ###
@@ -22,9 +27,44 @@ def home():
 @app.route('/about/')
 def about():
     """Render the website's about page."""
-    return render_template('about.html', name="Mary Jane")
+    return render_template('about.html', name="Project 1 - Properties")
 
 
+@app.route('/property', methods=['GET','POST'])
+def property():
+    """Render the website Property Page"""
+    propertyform = PropertyForm()
+    if request.method == 'POST':
+        if propertyform.validate_on_submit():
+            photo = request.files['photo']
+            property = Property(request.form['title'], request.form['description'], request.form['rooms'], request.form['bathrooms'], request.form['price'], request.form['type'], request.form['location'], filename)
+            filename = secure_filename(photo.filename)
+
+            photo.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+
+            property = Property(title=title, description=description, rooms=rooms, bathrooms=bathrooms, price=price, property_type=property_type, location=location, photo="uploads/"+filename)
+            db.session.add(property)
+            db.session.commit()
+
+            flash('New Property Added!', 'success')
+            return redirect(url_for('properties'))
+            else:
+                flash_errors(propertyforms)
+                flash('Error. Try again.', 'danger')
+                return redirect(url_for('home'))
+
+    return render_template('property.html', form=property_page)
+
+@app.route('/properties')
+def properties():
+    properties=db.session.query(Property).all()
+    return render_template('properties.html', properties=properties)
+
+
+@app.route('/property/<propertyid>')
+def show_property(propertyID):
+    property = db.session.query(Property).get(propertyID)
+    return render_template('viewproperty.html', property=property)
 ###
 # The functions below should be applicable to all Flask apps.
 ###

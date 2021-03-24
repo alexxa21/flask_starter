@@ -1,3 +1,59 @@
 body {
-    padding-top: 50px;
+    padding-top: 100px;
+    background-color: #f5f5f5;
 }
+
+
+
+.bold{
+    font-weight: bold;
+}
+
+.bg-new-clr{
+    background-color: #14b7a6;
+}
+
+
+.color{
+    border-radius: 10px;
+    background-color: white;
+    padding: 25px;
+}
+
+button[type="submit"]{
+    margin-top: 19px;
+    margin-left: 15px;
+    
+}
+
+.card-dark{
+    color: white;
+    font-weight: bold;
+    text-decoration: none;
+    
+}
+
+.image{
+    height: auto;
+    width: 24px;
+}
+
+.nh{
+    height: 100%;
+}
+
+.card-dark:hover{
+    text-decoration: none;
+    opacity: 0.75;
+    color: white;
+}
+
+.op{
+    opacity: 0.5;
+}
+
+
+.white{
+    color: white;
+}
+

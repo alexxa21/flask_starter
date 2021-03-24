@@ -1,2 +1,1 @@
-# flask_starter
-Starter code for a new Flask Application
+# INFO3180 Project 1
