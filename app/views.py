@@ -47,11 +47,11 @@ def property():
             db.session.commit()
 
             flash('New Property Added!', 'success')
-            return redirect(url_for('properties'))
-            else:
-                flash_errors(propertyforms)
-                flash('Error. Try again.', 'danger')
-                return redirect(url_for('home'))
+            return redirect(url_for('properties')
+       else:
+            flash_errors(propertyforms)
+            flash('Error. Try again.', 'danger')
+            return redirect(url_for('home'))
 
     return render_template('property.html', form=property_page)
 
