@@ -22,5 +22,3 @@ node_modules
 # SCSS
 .sass-cache
 
-#Pseudo Env
-env.txt
