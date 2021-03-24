@@ -37,7 +37,7 @@ def property():
     if request.method == 'POST':
         if propertyform.validate_on_submit():
             photo = request.files['photo']
-            property = Property(request.form['title'], request.form['description'], request.form['rooms'], request.form['bathrooms'], request.form['price'], request.form['type'], request.form['location'], filename)
+            property = Property(request.form['title'], request.form['description'], request.form['rooms'], request.form['bathrooms'], request.form['price'], request.form['property_type'], request.form['location'], filename)
             filename = secure_filename(photo.filename)
 
             photo.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
@@ -48,7 +48,7 @@ def property():
 
             flash('New Property Added!', 'success')
             return redirect(url_for('properties')
-       else:
+        else:
             flash_errors(propertyforms)
             flash('Error. Try again.', 'danger')
             return redirect(url_for('home'))
