@@ -8,10 +8,8 @@ This file creates your application.
 import os
 from app import app, db
 from flask import render_template, request, redirect, url_for, flash, send_from_directory
-from .forms import PropertyForm
-from werkzeug.utils import secure_filename
 from .models import Property
-
+from .forms import PropertyForm
 
 
 ###
@@ -24,7 +22,7 @@ def home():
     return render_template('home.html')
 
 
-@app.route('/about/')
+@app.route('/about')
 def about():
     """Render the website's about page."""
     return render_template('about.html', name="Project 1 - Properties")
@@ -37,37 +35,36 @@ def property():
     if request.method == 'POST':
         if propertyform.validate_on_submit():
             photo = request.files['photo']
-            property = Property(request.form['title'], request.form['description'], request.form['rooms'], request.form['bathrooms'], request.form['price'], request.form['property_type'], request.form['location'], filename)
-            filename = secure_filename(photo.filename)
-
-            photo.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
-
-            property = Property(title=title, description=description, rooms=rooms, bathrooms=bathrooms, price=price, property_type=property_type, location=location, photo="uploads/"+filename)
+            property = Property(request.form['title'], request.form['description'], request.form['rooms'], request.form['bathrooms'], request.form['price'], request.form['property_type'], request.form['location'], photo)
             db.session.add(property)
             db.session.commit()
-
+            photo.save(os.path.join(app.config['UPLOAD_FOLDER'], photo))
             flash('New Property Added!', 'success')
-            return redirect(url_for('properties')
+            return redirect(url_for('properties'))
         else:
-            flash_errors(propertyforms)
             flash('Error. Try again.', 'danger')
             return redirect(url_for('home'))
-
-    return render_template('property.html', form=property_page)
+        flash_errors(propertyform)
+    return render_template('property.html', form=propertyform)
 
 @app.route('/properties')
 def properties():
-    properties=db.session.query(Property).all()
-    return render_template('properties.html', properties=properties)
+    props=db.session.query(Property).all()
+    return render_template('properties.html', props=props)
 
 
 @app.route('/property/<propertyid>')
-def show_property(propertyID):
+def get_property(propertyID):
     property = db.session.query(Property).get(propertyID)
-    return render_template('viewproperty.html', property=property)
+    return render_template('viewproperty.html', spot=property)
 ###
 # The functions below should be applicable to all Flask apps.
 ###
+
+@app.route('/uploads/<photo>')
+def get_image(photo):
+    root_dir = os.getcwd()
+    return send_from_directory(os.path.join(root_dir, app.config['UPLOAD_FOLDER']), photo)
 
 # Display Flask WTF errors as Flash messages
 def flash_errors(form):

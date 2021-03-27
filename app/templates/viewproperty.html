@@ -5,7 +5,8 @@
 {% endblock%}
 
 {% block main %}
-{% if property != None %}
+{% include 'flash_messages.html' %}
+{% if spot != None %}
 <div class="card ch">
     <div class="row">
         <div class="col-md-4 no-gutters">
@@ -13,25 +14,15 @@
         </div>
         <div class="col-md-8">
             <div class="card-body">
-                <h5 class="card-title font-weight-bold">{{ property.title }}</h5>
+                <h5 class="card-title font-weight-bold">{{ spot.title }}</h5>
                 <div class="row">
                     <div class="col-sm-2">
-                        <p class="badge badge-pill badge-primary p-2">${{ property.price }}</p>
+                        <p class="badge badge-pill badge-primary p-2">${{ spot.price }}</p>
                     </div>
                     <div class="col-sm-1">
-                        <p class="badge badge-pill badge-warning white p-2">{{ property.type }}</p>
+                        <p class="badge badge-pill badge-warning white p-2">{{ spot.type }}</p>
                     </div>
                 </div>
-                <p class="card-text">{{ property.description }}</p>
-                <div class="row">
-                    <div class="col-md-4">
-                        <p class="text-muted"><img class="mr-2 op" src="{{ url_for('static', filename='img/bed-icon.svg') }}" alt="Bed-Icon">{{ property.rooms }} Bedrooms</p>
-                    </div>
-                    <div class="col-md-4">
-                        <p class="text-muted"><img class="mr-2 op" src="{{ url_for('static', filename='img/bath-icon.svg') }}" alt="Bath-Icon">{{ property.bathrooms }} Bathrooms</p>
-                    </div>
-                </div>
-                <p class="card-text text-muted"><img class="img mr-1 op" src="{{ url_for('static', filename='img/location-icon.svg') }}" alt="Location-Icon">{{ property.location }}</p>
                 <a href="#" class="btn card-dark bg-new-clr">Email Realtor</a> <!--doesn't have to work-->
             </div>
         </div>
