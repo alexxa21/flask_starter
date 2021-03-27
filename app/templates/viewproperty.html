@@ -7,20 +7,20 @@
 {% block main %}
 {% include 'flash_messages.html' %}
 {% if spot != None %}
-<div class="card ch">
+<div class="card">
     <div class="row">
-        <div class="col-md-4 no-gutters">
+        <div>
             <img class="col-md-12 nh" src="{{url_for('get_image', filename=photo.filename)}}" alt="Property image">
         </div>
         <div class="col-md-8">
             <div class="card-body">
-                <h5 class="card-title font-weight-bold">{{ spot.title }}</h5>
+                <p>{{ spot.title }}</p>
                 <div class="row">
                     <div class="col-sm-2">
-                        <p class="badge badge-pill badge-primary p-2">${{ spot.price }}</p>
+                        <p>${{ spot.price }} </p>
                     </div>
                     <div class="col-sm-1">
-                        <p class="badge badge-pill badge-warning white p-2">{{ spot.type }}</p>
+                        <p>{{ spot.type }}</p>
                     </div>
                 </div>
                 <a href="#" class="btn card-dark bg-new-clr">Email Realtor</a> <!--doesn't have to work-->

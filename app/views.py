@@ -8,6 +8,7 @@ This file creates your application.
 import os
 from app import app, db
 from flask import render_template, request, redirect, url_for, flash, send_from_directory
+from werkzeug.utils import secure_filename
 from .models import Property
 from .forms import PropertyForm
 
@@ -15,6 +16,9 @@ from .forms import PropertyForm
 ###
 # Routing for your application.
 ###
+
+UPLOAD_FOLDER = '/app/static/file_uploads'
+ALLOWED_EXTENSIONS = set(['png', 'jpg'])
 
 @app.route('/')
 def home():
@@ -38,13 +42,12 @@ def property():
             property = Property(request.form['title'], request.form['description'], request.form['rooms'], request.form['bathrooms'], request.form['price'], request.form['property_type'], request.form['location'], photo)
             db.session.add(property)
             db.session.commit()
-            photo.save(os.path.join(app.config['UPLOAD_FOLDER'], photo))
+            photo.save(os.path.join(app.config['UPLOAD_FOLDER'], photo)) #save uploaded photo
             flash('New Property Added!', 'success')
             return redirect(url_for('properties'))
         else:
-            flash('Error. Try again.', 'danger')
+            flash('Error. Please try again.', 'danger')
             return redirect(url_for('home'))
-        flash_errors(propertyform)
     return render_template('property.html', form=propertyform)
 
 @app.route('/properties')
@@ -63,6 +66,8 @@ def get_property(propertyID):
 
 @app.route('/uploads/<photo>')
 def get_image(photo):
+    #sources: https://stackoverflow.com/questions/58526153/how-to-upload-the-images-inside-a-folder-images-instead-of-the-curent-director
+    #https://www.bogotobogo.com/python/python_files.php 
     root_dir = os.getcwd()
     return send_from_directory(os.path.join(root_dir, app.config['UPLOAD_FOLDER']), photo)
 

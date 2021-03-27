@@ -4,7 +4,7 @@ class Config(object):
     """Base Config Object"""
     DEBUG = False
     SECRET_KEY = os.environ.get('SECRET_KEY') or 'Som3$ec5etK*y'
-    UPLOAD_FOLDER = './uploads'
+    UPLOAD_FOLDER = '/app/static/file_uploads'
     SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_URL') or 'postgresql://alexxa21:alexxa21@localhost/project1'
     SQLALCHEMY_TRACK_MODIFICATIONS = False # This is just here to suppress a warning from SQLAlchemy as it will soon be removed
 
