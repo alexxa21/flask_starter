@@ -10,27 +10,24 @@ body {
 }
 
 .bg-new-clr{
-    background-color: #14b7a6;
+    background-color: #19aa9c;
 }
 
 
-.color{
+.color{s
     border-radius: 10px;
     background-color: white;
-    padding: 25px;
 }
 
 button[type="submit"]{
     margin-top: 19px;
-    margin-left: 15px;
+    margin-left: 16px;
     
 }
 
 .card-dark{
     color: white;
     font-weight: bold;
-    text-decoration: none;
-    
 }
 
 .image{
